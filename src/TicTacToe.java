@@ -133,17 +133,54 @@ public class TicTacToe {
     }
 
     private static boolean isTie() {
-        // If all spaces are filled, it's a tie
+        // Standard tie condition: all spaces filled
         if (moveCount >= ROWS * COLS) {
             return true;
         }
 
-        // Check if all possible win vectors are blocked
-        boolean xHasWin = isWin("X");
-        boolean oHasWin = isWin("O");
+        // Additional tie condition: all possible win vectors are blocked
+        return areAllWinVectorsBlocked();
+    }
 
-        // If both players have potential wins (which shouldn't happen in normal play)
-        // or if all possible win vectors are blocked by having both X and O
-        return xHasWin && oHasWin;
+    private static boolean areAllWinVectorsBlocked() {
+        // Check all rows
+        for (int i = 0; i < ROWS; i++) {
+            if (!isVectorBlocked(board[i][0], board[i][1], board[i][2])) {
+                return false;
+            }
+        }
+
+        // Check all columns
+        for (int j = 0; j < COLS; j++) {
+            if (!isVectorBlocked(board[0][j], board[1][j], board[2][j])) {
+                return false;
+            }
+        }
+
+        // Check both diagonals
+        if (!isVectorBlocked(board[0][0], board[1][1], board[2][2])) {
+            return false;
+        }
+        if (!isVectorBlocked(board[0][2], board[1][1], board[2][0])) {
+            return false;
+        }
+
+        // If we get here, all 8 win vectors are blocked
+        return true;
+    }
+
+    private static boolean isVectorBlocked(String a, String b, String c) {
+        boolean hasX = false;
+        boolean hasO = false;
+
+        // Check if the vector contains both X and O
+        if (a.equals("X") || b.equals("X") || c.equals("X")) {
+            hasX = true;
+        }
+        if (a.equals("O") || b.equals("O") || c.equals("O")) {
+            hasO = true;
+        }
+
+        return hasX && hasO;
     }
 }
