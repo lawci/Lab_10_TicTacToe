@@ -28,8 +28,8 @@ public class TicTacToe {
                 int row, col;
                 do {
                     System.out.println("Player " + currentPlayer + "'s turn");
-                    row = SafeInput.getRangedInt(scanner, "Enter row (1-3): ", 1, 3);
-                    col = SafeInput.getRangedInt(scanner, "Enter column (1-3): ", 1, 3);
+                    row = SafeInput.getRangedInt(scanner, "Enter row of your move", 1, 3);
+                    col = SafeInput.getRangedInt(scanner, "Enter column of your move", 1, 3);
 
                     // Convert to array indices
                     int arrayRow = row - 1;
@@ -48,11 +48,11 @@ public class TicTacToe {
                 // Check for win or tie
                 if (isWin(currentPlayer)) {
                     display();
-                    System.out.println("Player " + currentPlayer + " wins!");
+                    System.out.println("Player " + currentPlayer + " wins.");
                     gameOver = true;
                 } else if (isTie()) {
                     display();
-                    System.out.println("It's a tie!");
+                    System.out.println("It's a tie.");
                     gameOver = true;
                 } else {
                     // Switch players for next turn
@@ -61,7 +61,7 @@ public class TicTacToe {
             }
 
             // Ask to play again
-            playAgain = SafeInput.getYNConfirm(scanner, "Would you like to play again? (Y/N)");
+            playAgain = SafeInput.getYNConfirm(scanner, "Would you like to play again?");
 
             // Toggle who starts first for the next game
             firstPlayer = (firstPlayer.equals("X")) ? "O" : "X";
